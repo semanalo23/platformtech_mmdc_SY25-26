@@ -1,14 +1,23 @@
-package main.java.com.example.finmarkprojectfiner;
+package com.example.finmarkprojectfiner;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.beans.BeanProperty;
 
+@Configuration
 public class SecurityConfigurationFinMark {
 
     @Bean
     public UserDetailsService userDetailsService(){
 
-        var user = User.withUsername("testuser").password("password123").roles("USER").build();
-        var admin = Admin.withUsername("admin").password("admin123").roles("ADMIN").build();
+        var user = User.withUsername("testuser").password("{noop}password123").roles("USER").build();
+        var admin = User.withUsername("admin").password("{noop}admin123").roles("ADMIN").build();
 
         return new InMemoryUserDetailsManager(user, admin);
     }
@@ -19,7 +28,15 @@ public class SecurityConfigurationFinMark {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/home")
                         .authenticated().anyRequest().permitAll()
                 )
-                .formLogin().defaultSuccessUrl("/home", true).and().logout();
+                .formLogin(form -> form
+                .defaultSuccessUrl("/home", true)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                );
 
         return http.build();
 
