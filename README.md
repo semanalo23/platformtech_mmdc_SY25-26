@@ -4,7 +4,7 @@ Welcome to the repository for **Project Finer FinMark**. This prototype is a sca
 
 ## 🚀 Tech Stack
 
-- **Backend:** Java / Spring Boot (REST API, Security)
+- **Backend:** Java / Spring Boot (Security)
 - **Frontend:** React.js (User Interface)
 - **Build Tools:** Maven (Backend) & npm (Frontend)
 
@@ -12,11 +12,11 @@ Welcome to the repository for **Project Finer FinMark**. This prototype is a sca
 
 ## 🔐 Testing Credentials
 
-For grading and testing purposes, you can use the following pre-configured accounts to explore the different user roles and access controls built into the application:
+For testing purposes, you can use the following pre-configured accounts to explore the different user roles and access controls built into the application:
 
 | Role | Username | Password | Access Level |
 | :--- | :--- | :--- | :--- |
-| **Regular User** | `testuser` | `password123` | Can place orders and view history |
+| **Regular User** | `testuser` | `password123` | Can only view user dashboards |
 | **Administrator** | `admin` | `admin123` | Full access to system dashboards |
 
 ---
