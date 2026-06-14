@@ -6,7 +6,7 @@ Welcome to the repository for **Project Finer FinMark**. This prototype is a sca
 
 - **Backend:** Java / Spring Boot (Security)
 - **Frontend:** React.js (User Interface)
-- **Build Tools:** Maven (Backend) & npm (Frontend)
+- **Build Tools:** Gradle (Backend) & npm (Frontend)
 
 ---
 
