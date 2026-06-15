@@ -24,11 +24,11 @@ For testing purposes, you can use the following pre-configured accounts to explo
 ### Prerequisites
 Make sure you have the following installed:
 - [Java JDK 17 or higher](https://www.oracle.com/java/technologies/downloads/)
-- [Node.js (v18 or higher)](https://nodejs.org/)
+- SpringBoot (https://docs.spring.io/spring-boot/installing.html)
 - [Git](https://git-scm.com/)
 
 👥 Group Members (Group 2 - H3101)
-- Sire Edmond Manalo
+- Sire Ermond Manalo
 - Vladimir Bernardo
 - Chelsea Jin Collado
 - Jason Bryan Tan
