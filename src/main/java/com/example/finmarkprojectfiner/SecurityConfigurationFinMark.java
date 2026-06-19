@@ -41,7 +41,7 @@ public class SecurityConfigurationFinMark {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout") // back to login after logout
+                        .logoutSuccessUrl("/logout-success") // points to the logout page
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
