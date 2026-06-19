@@ -23,15 +23,23 @@ public class SecurityConfigurationFinMark {
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/home")
-                        .authenticated().anyRequest().permitAll()
+        http
+                .authorizeHttpRequests(auth -> auth
+                        // Require login for home and products
+                        .requestMatchers("/home", "/products/**").authenticated()
+                        // Allow login, register, reset pages without authentication
+                        .requestMatchers("/login", "/register", "/reset").permitAll()
+                        // Everything else is open
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                .defaultSuccessUrl("/home", true)
+                        .loginPage("/login")              // custom login page
+                        .defaultSuccessUrl("/home", true) // always go to dashboard after login
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login?logout") // back to login after logout
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
