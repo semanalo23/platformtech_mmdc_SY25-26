@@ -29,8 +29,10 @@ public class SecurityConfigurationFinMark {
                         .requestMatchers("/home", "/products/**").authenticated()
                         // Allow login, register, reset pages without authentication
                         .requestMatchers("/login", "/register", "/reset").permitAll()
-                        // Everything else is open
-                        .anyRequest().permitAll()
+                        // Allow static resources
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        // Everything else requires authentication
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")              // custom login page
