@@ -1,5 +1,6 @@
 package com.example.finmarkprojectfiner.catalog.service;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import com.example.finmarkprojectfiner.catalog.model.FinmarkProduct;
 import com.example.finmarkprojectfiner.catalog.repository.FinmarkProductRepo;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,32 @@ import java.util.Optional;
 public class FinmarkProdService {
 
     private final FinmarkProductRepo productRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     // Constructor injection
-    public FinmarkProdService(FinmarkProductRepo productRepository) {
+    public FinmarkProdService(FinmarkProductRepo productRepository,RedisTemplate<String, Object> redisTemplate) {
+
         this.productRepository = productRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     // Get all products
     public List<FinmarkProduct> getAllProducts() {
-        return productRepository.findAll();
+
+        String key = "products:all";
+        List<FinmarkProduct> cached = (List<FinmarkProduct>) redisTemplate.opsForValue().get(key);
+
+        if (cached != null) {
+            System.out.println("Cache hit: returning products from Redis");
+            return cached; // cache hit
+        }
+
+        System.out.println("Cache miss: querying database");
+
+        List<FinmarkProduct> products = productRepository.findAll();
+        redisTemplate.opsForValue().set(key, products);
+
+        return products;
     }
 
     // Get product by ID
