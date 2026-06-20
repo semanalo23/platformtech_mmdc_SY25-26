@@ -2,16 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product Catalog</title>
+
+    <link th:href="@{/css/productcatalog.css}" rel="stylesheet"/>
 </head>
 <body>
 <h2>Product Catalog</h2>
 <table>
-    <tr><th>Name</th><th>Description</th><th>Price</th><th>Stock</th></tr>
-    <tr th:each="prod : ${products}">
-        <td th:text="${prod.name}"></td>
-        <td th:text="${prod.description}"></td>
-        <td th:text="${prod.price}"></td>
-        <td th:text="${prod.stockQuantity}"></td>
+    <tr>
+        <th>Business Unit</th>
+        <th>Description</th>
+        <th>Starter <span class="price">₱999/month</span></th>
+        <th>Professional <span class="price">₱2,499/month</span></th>
+        <th>Ultimate <span class="price">₱4,999/month</span></th>
+    </tr>
+    <tr>
+        <td>FinMark Books</td>
+        <td>Cloud accounting: journal entries, invoicing, reconciliation, reporting</td>
+        <td>Basic invoicing & ledger<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Full accounting workflows<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Advanced reporting + integrations<br><button class="subscribe-btn">Subscribe</button></td>
+    </tr>
+    <tr>
+        <td>FinMark Payroll</td>
+        <td>Government-compliant payroll, benefits, deductions, payslips</td>
+        <td>Basic payroll runs<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Benefits + deductions automation<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Full compliance + e-payslips<br><button class="subscribe-btn">Subscribe</button></td>
+    </tr>
+    <tr>
+    <tr>
+        <td>FinMark TaxEdge</td>
+        <td>BIR tax automation, submission scheduling, compliance</td>
+        <td>Basic tax calculator<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Filing scheduler + accounting integration<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Full automation + audit trail<br><button class="subscribe-btn">Subscribe</button></td>
+    </tr>
+    <tr>
+        <td>FinMark Insights</td>
+        <td>BI dashboards, real-time visualizations, alerts</td>
+        <td>Simple reports<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Custom dashboards<br><button class="subscribe-btn">Subscribe</button></td>
+        <td>Predictive analytics + alerts<br><button class="subscribe-btn">Subscribe</button></td>
     </tr>
 </table>
 
