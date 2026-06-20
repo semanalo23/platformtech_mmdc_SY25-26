@@ -25,18 +25,27 @@ public class FinmarkProdService {
     public List<FinmarkProduct> getAllProducts() {
 
         String key = "products:all";
-        List<FinmarkProduct> cached = (List<FinmarkProduct>) redisTemplate.opsForValue().get(key);
 
-        if (cached != null) {
-            System.out.println("Cache hit: returning products from Redis");
-            return cached; // cache hit
+        try {
+            List<FinmarkProduct> cached = (List<FinmarkProduct>) redisTemplate.opsForValue().get(key);
+
+            if (cached != null) {
+                System.out.println("Cache hit: returning products from Redis");
+                return cached; // cache hit
+            }
+        } catch (Exception e) {
+            System.out.println("Redis unavailable, falling back to DB: " + e.getMessage());
         }
 
         System.out.println("Cache miss: querying database");
-
         List<FinmarkProduct> products = productRepository.findAll();
-        redisTemplate.opsForValue().set(key, products);
 
+        try {
+            redisTemplate.opsForValue().set(key, products);
+        }
+        catch (Exception e){
+            System.out.println("Could not update Redis cache: " + e.getMessage());
+        }
         return products;
     }
 
