@@ -1,22 +1,30 @@
 package com.example.finmarkprojectfiner.catalog.prodcontroller;
 
-import org.springframework.ui.Model;
-import com.example.finmarkprojectfiner.catalog.service.FinmarkProdService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class FinmarkProdPageController {
 
-    private final FinmarkProdService productService;
-
-    public FinmarkProdPageController(FinmarkProdService productService) {
-        this.productService = productService;
+    @GetMapping("/financialservices")
+    public String financialServices() {
+        return "financial-services"; //pointing to financial-services.html
     }
 
-    @GetMapping("/products/list")
-    public String listProducts(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "products"; // products.html
+    @GetMapping("/marketinganalytics")
+    public String marketingServices() {
+        return "marketing-services"; //pointing to marketing-services.html
     }
+
+    @GetMapping("/bi-services")
+    public String biServices() {
+        return "bi-services"; //pointing to bi-services.html
+    }
+
+    @GetMapping("/consultingservices")
+    public String consultingServices() {
+        return "consulting-services"; //pointing to consulting-services.html
+    }
+
 }
