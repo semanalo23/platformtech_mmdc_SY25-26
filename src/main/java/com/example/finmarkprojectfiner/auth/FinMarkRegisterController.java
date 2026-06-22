@@ -1,27 +1,37 @@
 package com.example.finmarkprojectfiner.auth;
 
+import com.example.finmarkprojectfiner.SecurityConfigurationFinMark; // 🟢 Import your security configuration
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/register")
 public class FinMarkRegisterController {
-    // Simulated "database"
-    private Map<String, String> users = new HashMap<>();
 
     @PostMapping
-    public String register(@RequestParam String username, @RequestParam String password) {
-        if (users.containsKey(username)) {
-            return "User already exists!";
+    public String register(
+            @RequestParam String name,
+            @RequestParam String company,
+            @RequestParam String email,
+            @RequestParam String username, 
+            @RequestParam String password) {
+        
+        // 🟢 Check against our shared live credentials data store
+        if (SecurityConfigurationFinMark.databaseCredentials.containsKey(username)) {
+            return "redirect:/register?error=exists";
         }
-        users.put(username, password); // simulate saving to DB
-        return "Registration successful for user: " + username;
+        
+        // 🟢 PERSIST DATA: Write directly into the live Spring Security verification filter map
+        SecurityConfigurationFinMark.databaseCredentials.put(username, password); 
+        
+        return "redirect:/login?success"; 
     }
 
     @GetMapping("/all")
+    @ResponseBody
     public Map<String, String> listUsers() {
-        return users; // just to show what’s stored
+        // Keeps your debug API functional
+        return SecurityConfigurationFinMark.databaseCredentials; 
     }
 }

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Financial Analysis Matrix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #edf2f7;
+            color: #1a202c;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header-section {
+            margin-bottom: 32px;
+        }
+
+        .header-section h1 {
+            font-size: 26px;
+            color: #1a202c;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header-section p {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        .matrix-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .matrix-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            transition: transform 0.2s ease;
+        }
+
+        .matrix-item:hover {
+            transform: translateX(4px);
+            border-color: #cbd5e0;
+        }
+
+        .matrix-info {
+            flex-grow: 1;
+        }
+
+        .matrix-info h3 {
+            font-size: 18px;
+            color: #1a202c;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .matrix-info p {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .btn-checkout {
+            min-width: 180px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(74, 114, 178, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(74, 114, 178, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" class="btn-back">← Hub Panel</a>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>Financial Analysis Services Matrix</h1>
+            <p>Deploy executive financial models and diagnostics. Click on any rate option below to initiate the checkout flow.</p>
+        </div>
+
+        <div class="matrix-list">
+            
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>1. Financial Modeling & Forecasting (Investor or Bank Ready)</h3>
+                    <p>Building a dynamic, 3-to-5-year financial forecast model (Income Statement, Balance Sheet, Cash Flow) with an interactive dashboard to simulate business scenarios.</p>
+                </div>
+                <button class="btn-checkout">₱80,000 - ₱250,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>2. Business Valuation Analysis</h3>
+                    <p>Calculating the explicit economic worth of the entity using structured Discounted Cash Flow (DCF) metrics and relative market comparables.</p>
+                </div>
+                <button class="btn-checkout">₱100,000 - ₱300,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>3. Financial Due Diligence / Diagnostic Audit</h3>
+                    <p>In-depth analytical review of target business architecture to intercept cash leaks, evaluate tax risk exposure, or identify structural revenue inflation prior to contract finalization.</p>
+                </div>
+                <button class="btn-checkout">₱150,000 - ₱500,000+</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>4. Fractional CFO / Virtual CFO Services</h3>
+                    <p>Part-time executive financial strategy management. Monthly performance breakdown reviews, variance analysis consulting, working capital management, and structural development guidance.</p>
+                </div>
+                <button class="btn-checkout">₱100,000 - ₱200,000+ / mo</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>5. Routine FP&A (Financial Planning & Analysis)</h3>
+                    <p>Transforming basic ledger inputs into tracking management insights. Departmental KPI compilation, comprehensive budget-versus-actual analysis reports, and dynamic dashboards.</p>
+                </div>
+                <button class="btn-checkout">₱30,000 - ₱70,000 / mo</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>6. Cost & Margin Optimization Audit</h3>
+                    <p>Granular look at structural unit economics to measure exact segment margin returns while targeting operational cost centers or vendor execution friction.</p>
+                </div>
+                <button class="btn-checkout">₱40,000 - ₱75,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>7. Cash Flow Runway Blueprint</h3>
+                    <p>Fast, targeted deployment assessing rolling cash receipts and allocations over a 6-month operational matrix to stabilize liquidity constraints.</p>
+                </div>
+                <button class="btn-checkout">₱35,000 - ₱60,000</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

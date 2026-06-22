@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Secure Access</title>
+    <style>
+        /* 1. Base Setup & Light Executive Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 2. Light Frosted-Glass Card Container */
+        .login-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            width: 400px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        /* 3. Logo Alignment & Header Styles */
+        .brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            background-color: #2d3748;
+            /* Creates a clean corporate geometric icon silhouette matching your blueprint */
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 24px;
+            margin-bottom: 6px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #1a202c;
+            margin: 0 0 24px 0;
+            letter-spacing: -0.5px;
+        }
+
+        /* 4. Form Controls */
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #2d3748;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4a72b2;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(74, 114, 178, 0.15);
+        }
+
+        /* 5. Executive Accent Actions */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(74, 114, 178, 0.25);
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(74, 114, 178, 0.35);
+        }
+
+        /* Error/Feedback alerts inside the card */
+        .error-banner {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #c53030;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        /* Success banner for post-registration redirect notification */
+        .success-banner {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #22543d;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="brand-header">
+            <div class="brand-logo"></div>
+            <div class="brand-name">FinMark Corporation</div>
+        </div>
+
+        <div class="subtitle">Secure Access</div>
+        <h2>Sign in to your account</h2>
+
+        <form data-th-action="@{/login}" method="post">
+    
+            <div data-th-if="${param.error}" class="error-banner">
+                Invalid corporate credentials. Please try again.
+            </div>
+
+            <div data-th-if="${param.success}" class="success-banner">
+                Account registered successfully. Please sign in.
+            </div>
+
+            <div class="form-group">
+                <label for="username">Email Address</label>
+                <input type="text" id="username" name="username" placeholder="name@company.com" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-submit">Sign In →</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+            <span style="font-size: 13px; color: #718096;">New Client?</span>
+            <a data-th-href="@{/register}" style="text-decoration: none; margin-left: 6px;">
+                <button type="button" style="background: none; border: 1px solid #5a81bf; color: #5a81bf; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='#f0f4f8'" onmouseout="this.style.backgroundColor='transparent'">
+                    Sign up Now!
+                </button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

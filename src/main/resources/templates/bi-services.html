@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Business Intelligence Matrix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #edf2f7;
+            color: #1a202c;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header-section {
+            margin-bottom: 32px;
+        }
+
+        .header-section h1 {
+            font-size: 26px;
+            color: #1a202c;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header-section p {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        .matrix-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .matrix-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            transition: transform 0.2s ease;
+        }
+
+        .matrix-item:hover {
+            transform: translateX(4px);
+            border-color: #cbd5e0;
+        }
+
+        .matrix-info {
+            flex-grow: 1;
+        }
+
+        .matrix-info h3 {
+            font-size: 18px;
+            color: #1a202c;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .matrix-info p {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .btn-checkout {
+            min-width: 180px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(74, 114, 178, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(74, 114, 178, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" class="btn-back">← Hub Panel</a>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>Business Intelligence Services Matrix</h1>
+            <p>Deploy cloud analytics pipelines, telemetry visualizations, and secure infrastructure. Click any rate to go to checkout.</p>
+        </div>
+
+        <div class="matrix-list">
+            
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>1. Data Engineering & Integration Pipeline (ETL)</h3>
+                    <p>Extracting raw data from different silos (Salesforce, Xero, Shopify, MySQL databases, Excel sheets), transforming it into clean, unified schemas, and loading it into a central cloud data warehouse like Google BigQuery or Amazon Redshift.</p>
+                </div>
+                <button class="btn-checkout">₱120,000 - ₱350,000+</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>2. Executive & Operational BI Dashboards</h3>
+                    <p>Designing and deploying interactive corporate data visualization layers (using Microsoft Power BI, Tableau, or Looker Studio) custom-tailored for individual operational tiers and stakeholders.</p>
+                </div>
+                <button class="btn-checkout">₱60,000 - ₱150,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>3. Data Strategy & Governance Roadmapping</h3>
+                    <p>Comprehensive analytical infrastructure audit evaluating current organizational data maturity, data mapping configurations, privacy vulnerabilities, and complete system alignments required for strict compliance with the Philippine Data Privacy Act of 2012.</p>
+                </div>
+                <button class="btn-checkout">₱75,000 - ₱150,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>4. "Insights-as-a-Service" (Data Analytics Retainer)</h3>
+                    <p>Acting as your outsourced data analytics department. Managing automated pipelines, data cleansing verification checks, and distributing monthly or bi-weekly diagnostic reports identifying operations bottlenecks.</p>
+                </div>
+                <button class="btn-checkout">₱45,000 - ₱90,000 / mo</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>5. Enterprise BI Support & Data Warehouse Management</h3>
+                    <p>Managing large-scale cloud data warehouses, optimizing SQL execution to minimize cloud hosting overhead, structuring automated pipelines for new systems integration, and engineering predictive forecasting models.</p>
+                </div>
+                <button class="btn-checkout">₱100,000 - ₱250,000+</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

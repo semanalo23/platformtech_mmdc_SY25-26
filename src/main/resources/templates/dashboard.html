@@ -1,16 +1,234 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Operational Hub</title>
+    <style>
+        /* 1. Global Page Layout */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* 2. Sleek Top Navigation Bar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-logout {
+            background: none;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #fff5f5;
+            border-color: #fed7d7;
+            color: #c53030;
+        }
+
+        /* 3. Main Operational Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-header {
+            margin-bottom: 32px;
+        }
+
+        .welcome-header h1 {
+            font-size: 28px;
+            color: #1a202c;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-header p {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        /* 4. Responsive 4-Column Service Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        /* 5. Service Card Components */
+        .service-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .service-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .service-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .service-body h3 {
+            font-size: 18px;
+            color: #1a202c;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .service-body p {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin: 0 0 24px 0;
+            flex-grow: 1;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: #ffffff;
+            border-color: #4a72b2;
+            box-shadow: 0 4px 12px rgba(74, 114, 178, 0.15);
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome to the Dashboard</h1>
 
-<!-- Navigation buttons -->
-<p>
-    <a th:href="@{/products/list}">Product Catalog</a> |
-    <a th:href="@{/logout-success}">Logout</a>
-</p>
+    <nav class="navbar">
+        <div class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </div>
+        
+        <form data-th-action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-logout">Sign Out</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-header">
+            <h1>Corporate Service Gateway</h1>
+            <p>Select an analytical workspace environment to deploy systemic resource models.</p>
+        </div>
+
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <img class="service-img" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Financial Analysis">
+                <div class="service-body">
+                    <h3>Financial Analysis</h3>
+                    <p>Execute comprehensive asset tracking, margin trends, volatility indexing, and ledger audits.</p>
+                    <a data-th-href="@{/financial-services}" style="text-decoration: none; width: 100%; display: block;">
+                        <button type="button" class="btn-action">Services</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img class="service-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Marketing Analytics">
+                <div class="service-body">
+                    <h3>Marketing Analytics</h3>
+                    <p>Track performance channels, regional engagement ratios, conversion weights, and campaign trends.</p>
+                    <a data-th-href="@{/marketing-services}" style="text-decoration: none; width: 100%; display: block;">
+                        <button type="button" class="btn-action">Services</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img class="service-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Business Intelligence">
+                <div class="service-body">
+                    <h3>Business Intelligence</h3>
+                    <p>Process analytical big data arrays, telemetry visualizations, and real-time operations dashboards.</p>
+                    <a data-th-href="@{/bi-services}" style="text-decoration: none; width: 100%; display: block;">
+                        <button type="button" class="btn-action">Services</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img class="service-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="Consulting Services">
+                <div class="service-body">
+                    <h3>Consulting Services</h3>
+                    <p>Access strategic corporate advice models, risk mitigations, and cross-platform architectural blueprints.</p>
+                    <a data-th-href="@{/consulting-services}" style="text-decoration: none; width: 100%; display: block;">
+                        <button type="button" class="btn-action">Services</button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>
