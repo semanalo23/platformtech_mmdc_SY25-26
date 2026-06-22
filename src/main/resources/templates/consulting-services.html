@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Consulting Services Matrix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #edf2f7;
+            color: #1a202c;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header-section {
+            margin-bottom: 32px;
+        }
+
+        .header-section h1 {
+            font-size: 26px;
+            color: #1a202c;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header-section p {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        .matrix-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .matrix-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            transition: transform 0.2s ease;
+        }
+
+        .matrix-item:hover {
+            transform: translateX(4px);
+            border-color: #cbd5e0;
+        }
+
+        .matrix-info {
+            flex-grow: 1;
+        }
+
+        .matrix-info h3 {
+            font-size: 18px;
+            color: #1a202c;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .matrix-info p {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .btn-checkout {
+            min-width: 180px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(74, 114, 178, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(74, 114, 178, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" class="btn-back">← Hub Panel</a>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>Consulting Services Matrix</h1>
+            <p>Deploy strategic workflow engineering, turnaround models, and governance blueprints. Click any rate to checkout.</p>
+        </div>
+
+        <div class="matrix-list">
+            
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>1. Corporate Restructuring & Turnaround Strategy</h3>
+                    <p>Designed for businesses facing operational distress, heavy debt, or falling profit margins. Deep-dive modeling of organizational structure, cost mitigation layout, terms negotiation templates, and operational workflow re-engineering.</p>
+                </div>
+                <button class="btn-checkout">₱150,000 - ₱400,000+</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>2. Market Entry & Expansion Feasibility Study</h3>
+                    <p>Comprehensive target research architecture, competitor benchmarking systems, capital feasibility modeling, and localized regulatory risk mapping for market entry or product channel allocation.</p>
+                </div>
+                <button class="btn-checkout">₱120,000 - ₱300,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>3. Business Process Optimization & SOP Design</h3>
+                    <p>Operational day-to-day audit profiling. Tracing fulfillment lines and engineering bottlenecks to map out, document, and deploy refined Standard Operating Procedures (SOPs) maximizing throughput capacity.</p>
+                </div>
+                <button class="btn-checkout">₱80,000 - ₱200,000</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>4. Strategic Management Retainer (Advisory Board Seat)</h3>
+                    <p>Outsourced governance strategist deployment. Active monthly leadership review, key performance evaluations, corporate assumption stress-testing, and advisory model mapping.</p>
+                </div>
+                <button class="btn-checkout">₱40,000 - ₱80,000 / mo</button>
+            </div>
+
+            <div class="matrix-item">
+                <div class="matrix-info">
+                    <h3>5. Executive Growth Sprints (1-on-1 Consulting)</h3>
+                    <p>High-intensity short-term strategic advisory operations alongside leadership. Dedicated runway development for capitalization rounds or structured stakeholder resolution strategies.</p>
+                </div>
+                <button class="btn-checkout">₱60,000 / mo</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
