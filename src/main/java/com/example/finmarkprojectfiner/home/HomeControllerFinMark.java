@@ -1,5 +1,7 @@
 package com.example.finmarkprojectfiner.home;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +13,10 @@ import java.util.List;
 @Controller // Services HTML templates instead of raw text strings
 public class HomeControllerFinMark {
 
-    // Simulating system runtime memory states
+    //local run time
     private final List<String> executionLogs = new ArrayList<>();
     private int replicaCount = 0;
-    private boolean isPayrollServiceAlive = false; // Set to false to demonstrate microservice fallback/circuit breaker
+    private boolean isPayrollServiceAlive = false;
 
     public HomeControllerFinMark() {
         // Seed initial setup telemetry logs when the class instantiates
@@ -44,10 +46,9 @@ public class HomeControllerFinMark {
      */
     @GetMapping("/home")
     public String home(Model model) {
-        // Inject current system states directly down into the Thymeleaf template context
         model.addAttribute("logs", executionLogs);
         model.addAttribute("replicaCount", replicaCount);
-        return "dashboard"; 
+        return "dashboard";
     }
 
     /**
@@ -92,9 +93,9 @@ public class HomeControllerFinMark {
      */
     @PostMapping("/simulate-payroll")
     public String runSimulation(Model model) {
+
         executionLogs.add("🌟 [Client] Disbursed payroll / triggered transactional cycle.");
-        
-        // Microservice Error Handling Fallback Simulation Logic
+
         if (!isPayrollServiceAlive) {
             executionLogs.add("❌ API Gateway detected Payroll Microservice is DOWN. Triggering Circuit Breaker Fallback.");
             executionLogs.add("⚠️ [SERVER RESILIENCE] Primary node offline. Request safely queued in local message bus.");
@@ -104,10 +105,8 @@ public class HomeControllerFinMark {
             executionLogs.add("💾 Mirrored data transaction to Master Data Store.");
         }
 
-        // Push the updated, real-time lists back to the UI view model
         model.addAttribute("logs", executionLogs);
         model.addAttribute("replicaCount", replicaCount);
-        
-        return "dashboard"; // Refreshes the dashboard view with the new live log line items injected
+        return "dashboard";
     }
 }
