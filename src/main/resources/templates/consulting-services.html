@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinMark Corporation - Consulting Services Matrix</title>
+    <title>FinMark Corporation - Consulting Matrix</title>
     <style>
         body {
             margin: 0;
@@ -128,7 +128,7 @@
         }
 
         .btn-checkout {
-            min-width: 180px;
+            min-width: 220px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #5a81bf, #4a72b2);
             color: #ffffff;
@@ -161,49 +161,53 @@
     <div class="container">
         <div class="header-section">
             <h1>Consulting Services Matrix</h1>
-            <p>Deploy strategic workflow engineering, turnaround models, and governance blueprints. Click any rate to checkout.</p>
+            <p>Access strategic corporate advice models, risk mitigations, and cross-platform architectural blueprints. Click any rate to go to checkout.</p>
         </div>
 
         <div class="matrix-list">
             
             <div class="matrix-item">
                 <div class="matrix-info">
-                    <h3>1. Corporate Restructuring & Turnaround Strategy</h3>
-                    <p>Designed for businesses facing operational distress, heavy debt, or falling profit margins. Deep-dive modeling of organizational structure, cost mitigation layout, terms negotiation templates, and operational workflow re-engineering.</p>
+                    <h3>1. Business Process Re-engineering Consultation</h3>
+                    <p>Granular structural evaluation of enterprise workflows to minimize operational overhead, eliminate administrative friction, and optimize cross-departmental delivery velocity.</p>
                 </div>
-                <button class="btn-checkout">₱150,000 - ₱400,000+</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Business Process Re-engineering Consultation">
+                    <input type="hidden" name="price" value="150000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱150,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
                 <div class="matrix-info">
-                    <h3>2. Market Entry & Expansion Feasibility Study</h3>
-                    <p>Comprehensive target research architecture, competitor benchmarking systems, capital feasibility modeling, and localized regulatory risk mapping for market entry or product channel allocation.</p>
+                    <h3>2. Corporate Risk Management & Mitigation Blueprint</h3>
+                    <p>Engineering complete organizational risk mitigation modeling, disaster fallback frameworks, and compliance audit parameters matching local asset management constraints.</p>
                 </div>
-                <button class="btn-checkout">₱120,000 - ₱300,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Corporate Risk Management Blueprint">
+                    <input type="hidden" name="price" value="180000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱180,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
                 <div class="matrix-info">
-                    <h3>3. Business Process Optimization & SOP Design</h3>
-                    <p>Operational day-to-day audit profiling. Tracing fulfillment lines and engineering bottlenecks to map out, document, and deploy refined Standard Operating Procedures (SOPs) maximizing throughput capacity.</p>
+                    <h3>3. Cross-Platform Architectural Design Consultation</h3>
+                    <p>High-level system topology modeling. Engineering microservices coordination pipelines, distributed cloud database infrastructure roadmaps, and secure API data highways.</p>
                 </div>
-                <button class="btn-checkout">₱80,000 - ₱200,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Cross-Platform Architectural Consultation">
+                    <input type="hidden" name="price" value="200000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱200,000</button>
+                </form>
             </div>
-
-            <div class="matrix-item">
-                <div class="matrix-info">
-                    <h3>4. Strategic Management Retainer (Advisory Board Seat)</h3>
-                    <p>Outsourced governance strategist deployment. Active monthly leadership review, key performance evaluations, corporate assumption stress-testing, and advisory model mapping.</p>
-                </div>
-                <button class="btn-checkout">₱40,000 - ₱80,000 / mo</button>
-            </div>
-
-            <div class="matrix-item">
-                <div class="matrix-info">
-                    <h3>5. Executive Growth Sprints (1-on-1 Consulting)</h3>
-                    <p>High-intensity short-term strategic advisory operations alongside leadership. Dedicated runway development for capitalization rounds or structured stakeholder resolution strategies.</p>
-                </div>
-                <button class="btn-checkout">₱60,000 / mo</button>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Product Catalog Feedback</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Need adjustments on specific corporate engagement rates? Report metric configurations here.</p>
+                <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                    <button type="button" class="btn-checkout" style="max-width: 240px; min-width: auto;">Launch Feedback Console</button>
+                </a>
             </div>
 
         </div>

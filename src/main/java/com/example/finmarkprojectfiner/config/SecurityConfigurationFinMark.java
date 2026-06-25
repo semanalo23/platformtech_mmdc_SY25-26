@@ -1,44 +1,32 @@
-package com.example.finmarkprojectfiner;
+package com.example.finmarkprojectfiner.config;
 
+import com.example.finmarkprojectfiner.home.HomeControllerFinMark;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurationFinMark {
 
-    // 🟢 DYNAMIC STORAGE: Shared memory accessible by both login and registration engines
-    public static final Map<String, String> databaseCredentials = new HashMap<>();
-
-    static {
-        // Seed initial presentation profiles so your default accounts still work instantly
-        databaseCredentials.put("testuser", "password123");
-        databaseCredentials.put("admin", "admin123");
-    }
-
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            if (!databaseCredentials.containsKey(username)) {
+            if (!HomeControllerFinMark.databaseCredentials.containsKey(username)) {
                 throw new UsernameNotFoundException("Corporate user not found: " + username);
             }
             
-            String password = databaseCredentials.get(username);
+            String password = HomeControllerFinMark.databaseCredentials.get(username);
+            String assignedRole = "admin".equalsIgnoreCase(username) ? "ADMIN" : "USER";
             
-            // Build dynamic authentication details
             return User.withUsername(username)
-                    .password("{noop}" + password) // Uses plain text for development verification
-                    .roles("USER")
+                    .password("{noop}" + password)
+                    .roles(assignedRole)
                     .build();
         };
     }
@@ -48,12 +36,38 @@ public class SecurityConfigurationFinMark {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
-                .requestMatchers("/home", "/financial-services", "/marketing-services", "/bi-services", "/consulting-services").authenticated()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers(
+                    "/home", 
+                    "/financial-services", 
+                    "/marketing-services", 
+                    "/bi-services", 
+                    "/consulting-services",
+                    "/feedback",
+                    "/submit-feedback",
+                    "/cart", 
+                    "/cart/add", 
+                    "/cart/checkout", // 🟢 Cart paths
+                    "/order/track"
+                ).authenticated()
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
+                // 🟢 DYNAMIC GATEWAY ROUTING: Check roles right after user authenticates
+                .successHandler((request, response, authentication) -> {
+                    var roles = authentication.getAuthorities();
+                    boolean isAdmin = roles.stream()
+                            .anyMatch(authRole -> authRole.getAuthority().equals("ROLE_ADMIN"));
+                    
+                    if (isAdmin) {
+                        // Admin accounts automatically jump straight into the feedback monitoring log table
+                        response.sendRedirect("/admin/feedback-dashboard");
+                    } else {
+                        // Clients automatically land on their 4 Corporate Services grid panel
+                        response.sendRedirect("/home");
+                    }
+                })
                 .permitAll()
             )
             .logout(logout -> logout

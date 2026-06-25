@@ -128,7 +128,7 @@
         }
 
         .btn-checkout {
-            min-width: 180px;
+            min-width: 220px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #5a81bf, #4a72b2);
             color: #ffffff;
@@ -171,7 +171,11 @@
                     <h3>1. Data Engineering & Integration Pipeline (ETL)</h3>
                     <p>Extracting raw data from different silos (Salesforce, Xero, Shopify, MySQL databases, Excel sheets), transforming it into clean, unified schemas, and loading it into a central cloud data warehouse like Google BigQuery or Amazon Redshift.</p>
                 </div>
-                <button class="btn-checkout">₱120,000 - ₱350,000+</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Data Engineering & Integration Pipeline (ETL)">
+                    <input type="hidden" name="price" value="120000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱120,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -179,7 +183,11 @@
                     <h3>2. Executive & Operational BI Dashboards</h3>
                     <p>Designing and deploying interactive corporate data visualization layers (using Microsoft Power BI, Tableau, or Looker Studio) custom-tailored for individual operational tiers and stakeholders.</p>
                 </div>
-                <button class="btn-checkout">₱60,000 - ₱150,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Executive & Operational BI Dashboards">
+                    <input type="hidden" name="price" value="60000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱60,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -187,7 +195,11 @@
                     <h3>3. Data Strategy & Governance Roadmapping</h3>
                     <p>Comprehensive analytical infrastructure audit evaluating current organizational data maturity, data mapping configurations, privacy vulnerabilities, and complete system alignments required for strict compliance with the Philippine Data Privacy Act of 2012.</p>
                 </div>
-                <button class="btn-checkout">₱75,000 - ₱150,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Data Strategy & Governance Roadmapping">
+                    <input type="hidden" name="price" value="75000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱75,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -195,7 +207,11 @@
                     <h3>4. "Insights-as-a-Service" (Data Analytics Retainer)</h3>
                     <p>Acting as your outsourced data analytics department. Managing automated pipelines, data cleansing verification checks, and distributing monthly or bi-weekly diagnostic reports identifying operations bottlenecks.</p>
                 </div>
-                <button class="btn-checkout">₱45,000 - ₱90,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Insights-as-a-Service Retainer">
+                    <input type="hidden" name="price" value="45000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱45,000/mo</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -203,7 +219,19 @@
                     <h3>5. Enterprise BI Support & Data Warehouse Management</h3>
                     <p>Managing large-scale cloud data warehouses, optimizing SQL execution to minimize cloud hosting overhead, structuring automated pipelines for new systems integration, and engineering predictive forecasting models.</p>
                 </div>
-                <button class="btn-checkout">₱100,000 - ₱250,000+</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Enterprise BI Support & Warehouse Management">
+                    <input type="hidden" name="price" value="100000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱100,000</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Product Catalog Feedback</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Need adjustments on specific corporate engagement rates? Report metric configurations here.</p>
+                <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                    <button type="button" class="btn-checkout" style="max-width: 240px; min-width: auto;">Launch Feedback Console</button>
+                </a>
             </div>
 
         </div>

@@ -128,7 +128,7 @@
         }
 
         .btn-checkout {
-            min-width: 180px;
+            min-width: 220px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #5a81bf, #4a72b2);
             color: #ffffff;
@@ -171,7 +171,11 @@
                     <h3>1. Advanced Tracking Setup & Tag Management</h3>
                     <p>Configuring Google Tag Manager (GTM), Google Analytics 4 (GA4), Meta Pixel (with Conversions API for iOS compliance), and custom event tracking (tracking form submissions, button clicks, or Add-to-Cart events).</p>
                 </div>
-                <button class="btn-checkout">₱30,000 - ₱60,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Advanced Tracking Setup & Tag Management">
+                    <input type="hidden" name="price" value="30000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱30,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -179,7 +183,11 @@
                     <h3>2. Custom Marketing Performance Dashboards</h3>
                     <p>Building a dynamic, real-time dashboard using tools like Google Looker Studio or Power BI. Consolidates data from multiple sources (Meta Ads, Google Ads, TikTok, Google Analytics) into a single executive interface.</p>
                 </div>
-                <button class="btn-checkout">₱40,000 - ₱85,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Custom Marketing Performance Dashboards">
+                    <input type="hidden" name="price" value="40000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱40,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -187,7 +195,11 @@
                     <h3>3. Omnichannel Marketing & Attribution Audit</h3>
                     <p>Deep-dive audit evaluation of past marketing campaigns. Identifies conversion drivers vs. wasted ad spend channels, tracks Customer Acquisition Cost (CAC), and evaluates structural target journeys.</p>
                 </div>
-                <button class="btn-checkout">₱50,000 - ₱120,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Omnichannel Marketing & Attribution Audit">
+                    <input type="hidden" name="price" value="50000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱50,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -195,7 +207,11 @@
                     <h3>4. Performance Marketing Analytics (SMEs)</h3>
                     <p>Weekly or monthly structured data breakdowns for active digital campaigns. Evaluating Click-Through Rates (CTR), Cost Per Lead (CPL), and Return on Ad Spend (ROAS) with data-driven strategic adjustments.</p>
                 </div>
-                <button class="btn-checkout">₱25,000 - ₱45,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Performance Marketing Analytics (Monthly)">
+                    <input type="hidden" name="price" value="25000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱25,000/mo</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -203,7 +219,19 @@
                     <h3>5. Customer Data Science & Lifetime Value Optimization (Growth Scale)</h3>
                     <p>Data mining structures targeting client retention optimization. Tracking Customer Lifetime Value (LTV), systemic churn weights, customer behavioral segmentation profiling, and email/SMS pipeline attribution.</p>
                 </div>
-                <button class="btn-checkout">₱60,000 - ₱110,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Customer Data Science & LTV Optimization">
+                    <input type="hidden" name="price" value="60000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱60,000/mo</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Product Catalog Feedback</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Need adjustments on specific corporate engagement rates? Report metric configurations here.</p>
+                <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                    <button type="button" class="btn-checkout" style="max-width: 240px; min-width: auto;">Launch Feedback Console</button>
+                </a>
             </div>
 
         </div>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Admin Feedback Console</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #1a202c;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2d3748;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #ffffff;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .badge-admin {
+            background-color: #e53e3e;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+        }
+
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .log-table th, .log-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .log-table th {
+            background-color: #f7fafc;
+            color: #718096;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .query-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .badge-services { background-color: #eaf2ff; color: #2b6cb0; }
+        .badge-pricing { background-color: #f0fff4; color: #22543d; }
+        .badge-suggestions { background-color: #fffaf0; color: #b7791f; }
+
+        /* Navigation Button Console Components */
+        .admin-nav-console {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-btn-active {
+            background-color: #4a72b2;
+            color: #ffffff;
+            cursor: default;
+        }
+
+        .nav-btn-inactive {
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+
+        .nav-btn-inactive:hover {
+            background-color: #e2e8f0;
+            color: #1a202c;
+        }
+
+        /* CRUD Component Stylings */
+        .reply-box {
+            width: 95%;
+            height: 48px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e0;
+            font-size: 12px;
+            font-family: sans-serif;
+            resize: vertical;
+        }
+
+        .status-select {
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e0;
+            font-size: 11px;
+            font-weight: 600;
+            background-color: #ffffff;
+        }
+
+        .btn-submit-reply {
+            background-color: #4a72b2;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-delete-log {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .btn-delete-log:hover { background-color: #c53030; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Management Console</div>
+            <span class="badge-admin">Admin Privileges</span>
+        </div>
+        <form data-th-action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" style="background: none; border: 1px solid #4a5568; padding: 8px 16px; border-radius: 8px; color: #a0aec0; font-weight: 600; cursor: pointer;">Sign Out</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="admin-nav-console">
+                <a href="/admin/feedback-dashboard" class="nav-btn nav-btn-inactive">💬 View Client Feedback Logs</a>
+                <a href="/admin/orders-dashboard" class="nav-btn nav-btn-inactive">📦 View System Order Status Logs</a>
+                <a href="/admin/bi-reports" class="nav-btn nav-btn-inactive" style="background-color: #edf2f7; color: #4a5568;">📊 Executive BI Reports</a>
+            </div>
+
+            <h2 style="margin-top: 0; font-size: 22px; letter-spacing: -0.5px;">Client Feedback & Suggestion Registry</h2>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 32px;">Review active corporate system telemetry, pricing inquiries, and feature suggestions dispatched by clients.</p>
+
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Client Email</th>
+                        <th style="width: 15%;">Focus Domain</th>
+                        <th style="width: 30%;">Message Details</th>
+                        <th style="width: 25%;">Admin Response & Status</th>
+                        <th style="width: 10%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="item : ${feedbackLogs}">
+                        <td style="font-weight: 600; color: #1a202c;" data-th-text="${item.clientName}">client@company.com</td>
+                        <td>
+                            <span data-th-classappend="${item.serviceCategory == 'Services' ? 'badge-services' : (item.serviceCategory == 'Pricing' ? 'badge-pricing' : 'badge-suggestions')}" 
+                                  class="query-badge" 
+                                  data-th-text="${item.serviceCategory}">Query Type</span>
+                        </td>
+                        <td style="color: #4a5568; white-space: pre-wrap;" data-th-text="${item.message}">Feedback details log here...</td>
+                        
+                        <td>
+                            <form data-th-action="@{/admin/feedback/reply}" method="post" style="margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <input type="hidden" name="clientName" data-th-value="${item.clientName}">
+                                <input type="hidden" name="message" data-th-value="${item.message}">
+                                
+                                <textarea name="adminReply" th:text="${item.adminReply}" placeholder="Type reply message..." class="reply-box"></textarea>
+                                
+                                <div style="display: flex; gap: 6px; align-items: center;">
+                                    <select name="status" class="status-select">
+                                        <option th:value="${item.status}" th:text="${'Current: ' + item.status}" selected disabled>State</option>
+                                        <option value="Open">Open</option>
+                                        <option value="Investigating">Investigating</option>
+                                        <option value="Resolved / Sent">Resolved / Sent</option>
+                                    </select>
+                                    <button type="submit" class="btn-submit-reply">Submit</button>
+                                </div>
+                            </form>
+                        </td>
+                        
+                        <td>
+                            <form data-th-action="@{/admin/feedback/delete}" method="post" style="margin: 0;" onsubmit="return confirm('Purge this client submission log record permanently?');">
+                                <input type="hidden" name="clientName" data-th-value="${item.clientName}">
+                                <input type="hidden" name="message" data-th-value="${item.message}">
+                                <button type="submit" class="btn-delete-log">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                    <tr data-th-if="${#lists.isEmpty(feedbackLogs)}">
+                        <td colspan="5" style="text-align: center; color: #a0aec0; padding: 32px;">No incoming data logs matching current registration matrices.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

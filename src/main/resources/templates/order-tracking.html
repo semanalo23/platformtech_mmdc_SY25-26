@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Order Tracking Console</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover { background-color: #edf2f7; color: #1a202c; }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .search-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .form-group {
+            margin: 24px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-group input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: monospace;
+            background-color: #f7fafc;
+            text-transform: uppercase;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4a72b2;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(74, 114, 178, 0.15);
+        }
+
+        .btn-search {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(74, 114, 178, 0.2);
+        }
+
+        .status-alert {
+            margin-top: 28px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .status-found {
+            background-color: #ebf8ff;
+            border: 1px solid #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .status-missing {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #c53030;
+        }
+
+        .badge-pill {
+            background-color: #2b6cb0;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" class="btn-back">← Hub Panel</a>
+    </nav>
+
+    <div class="container">
+        <div class="search-card">
+            <h1 style="font-size: 24px; margin: 0 0 8px 0; letter-spacing: -0.5px;">Track Provisioning Status</h1>
+            <p style="font-size: 14px; color: #718096; margin: 0;">Input your framework registration reference number to monitor execution statuses.</p>
+
+            <form data-th-action="@{/order/track}" method="get">
+                <div class="form-group">
+                    <input type="text" name="referenceNumber" placeholder="e.g., FIN-12345-TX" data-th-value="${searchedRef}" required autocomplete="off">
+                    <button type="submit" class="btn-search">Trace ID</button>
+                </div>
+            </form>
+
+            <div data-th-if="${orderFound != null}" class="status-alert status-found">
+                <h3 style="margin: 0 0 8px 0; font-size: 16px;">✓ Track Record Target Found</h3>
+                <p style="margin: 4px 0; font-size: 14px;"><strong>Provisioned Scope:</strong> <span data-th-text="${orderFound.servicesOrdered}">Financial Analytics Tier A</span></p>
+                <p style="margin: 4px 0; font-size: 14px;"><strong>Total Value:</strong> ₱<span data-th-text="${orderFound.totalBill}">0.00</span></p>
+                <p style="margin: 4px 0; font-size: 14px;"><strong>Deployment Status:</strong></p>
+                <span class="badge-pill" data-th-text="${orderFound.status}">Pending Activation</span>
+            </div>
+
+            <div data-th-if="${errorSearching}" class="status-alert status-missing">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px;">❌ Reference Identification Error</h3>
+                <p style="margin: 0; font-size: 13px;">The tracing index number configuration could not be tracked against our ledger data structures. Verify syntax constraints and submit again.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
