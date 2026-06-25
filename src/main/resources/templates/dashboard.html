@@ -29,6 +29,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
 
         .brand-logo {
@@ -43,6 +44,26 @@
             font-weight: 700;
             color: #1a202c;
             letter-spacing: -0.5px;
+        }
+
+        .nav-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-nav-link {
+            text-decoration: none;
+            color: #4a72b2;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-nav-link:hover {
+            background-color: #eaf2ff;
         }
 
         .btn-logout {
@@ -160,19 +181,72 @@
             border-color: #4a72b2;
             box-shadow: 0 4px 12px rgba(74, 114, 178, 0.15);
         }
+
+        /* 6. Utility Footer Action Row Blocks */
+        .hub-footer-panels {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .footer-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="brand-block">
+        <a href="/home" class="brand-block">
             <div class="brand-logo"></div>
             <div class="brand-title">FinMark Corporation</div>
-        </div>
+        </a>
         
-        <form data-th-action="@{/logout}" method="post" style="margin: 0;">
-            <button type="submit" class="btn-logout">Sign Out</button>
-        </form>
+        <div class="nav-actions-group">
+            <div style="position: relative; display: inline-block; margin-right: 10px;">
+                <button type="button" onclick="toggleNotificationDropdown()" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 50%; position: relative; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#edf2f7'" onmouseout="this.style.backgroundColor='transparent'">
+                    🔔
+                    <span data-th-if="${!#lists.isEmpty(feedbackLogs)}" style="position: absolute; top: 0; right: 0; background-color: #e53e3e; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold;" data-th-text="${#lists.size(feedbackLogs)}">1</span>
+                </button>
+
+                <div id="notificationDropdown" style="display: none; position: absolute; right: 0; top: 35px; background-color: white; width: 320px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 1000; max-height: 400px; overflow-y: auto;">
+                    <div style="padding: 12px 16px; border-bottom: 1px solid #edf2f7; font-weight: bold; font-size: 14px; color: #1a202c; background-color: #f7fafc; border-top-left-radius: 12px; border-top-right-radius: 12px; text-align: left;">
+                        Console Updates
+                    </div>
+                    
+                    <div data-th-each="item : ${feedbackLogs}" style="padding: 14px 16px; border-bottom: 1px solid #edf2f7; text-align: left; font-size: 12px; line-height: 1.4;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="font-weight: bold; color: #4a72b2;" data-th-text="${item.serviceCategory}">Category</span>
+                            <span style="font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 10px;"
+                                  data-th-styleappend="${item.status == 'Open' ? 'background-color:#fffaf0; color:#b7791f;' : (item.status == 'Investigating' ? 'background-color:#eaf2ff; color:#2b6cb0;' : 'background-color:#f0fff4; color:#22543d;')}"
+                                  data-th-text="${item.status}">Open</span>
+                        </div>
+                        <p style="margin: 4px 0; color: #718096; font-style: italic;">"Your note: <span data-th-text="${item.message}">...</span>"</p>
+                        
+                        <div style="margin-top: 8px; padding: 8px; background-color: #f7fafc; border-left: 3px solid #4a72b2; border-radius: 4px;">
+                            <strong style="color: #2d3748; display: block; font-size: 11px; margin-bottom: 2px;">Admin Response:</strong>
+                            <span data-th-text="${#strings.isEmpty(item.adminReply) ? 'Awaiting response review...' : item.adminReply}" style="color: #4a5568;">...</span>
+                        </div>
+                    </div>
+
+                    <div data-th-if="${#lists.isEmpty(feedbackLogs)}" style="padding: 24px; color: #a0aec0; text-align: center; font-size: 13px;">
+                        No notification histories pending.
+                    </div>
+                </div>
+            </div>
+
+            <a data-th-href="@{/order/track}" class="btn-nav-link">🔍 Track Workspace Order</a>
+            <form data-th-action="@{/logout}" method="post" style="margin: 0;">
+                <button type="submit" class="btn-logout">Sign Out</button>
+            </form>
+        </div>
     </nav>
 
     <div class="container">
@@ -226,9 +300,48 @@
                     </a>
                 </div>
             </div>
+            
+            <div class="hub-footer-panels">
+                
+                <div class="footer-card">
+                    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Have Platform Optimization Insights?</h3>
+                    <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Log structural requests or evaluate diagnostic performance tiers within our client metrics registry.</p>
+                    <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                        <button type="button" class="btn-action" style="max-width: 240px; background: linear-gradient(135deg, #2d3748, #1a202c); color: #ffffff; border: none;">Open Feedback Dashboard</button>
+                    </a>
+                </div>
+
+                <div class="footer-card">
+                    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Monitor Infrastructure Order Status?</h3>
+                    <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Track framework deployment progress, delivery vectors, or evaluation metrics using your configuration token.</p>
+                    <a data-th-href="@{/order/track}" style="text-decoration: none;">
+                        <button type="button" class="btn-action" style="max-width: 240px; background: linear-gradient(135deg, #4a72b2, #3b5c90); color: #ffffff; border: none;">Open Tracking Dashboard</button>
+                    </a>
+                </div>
+
+            </div>
 
         </div>
     </div>
 
+    <script>
+        function toggleNotificationDropdown() {
+            var dropdown = document.getElementById("notificationDropdown");
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                dropdown.style.display = "block";
+            } else {
+                dropdown.style.display = "none";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('button') && !event.target.matches('button *')) {
+                var dropdown = document.getElementById("notificationDropdown");
+                if (dropdown && dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>

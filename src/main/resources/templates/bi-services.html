@@ -128,7 +128,7 @@
         }
 
         .btn-checkout {
-            min-width: 180px;
+            min-width: 220px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #5a81bf, #4a72b2);
             color: #ffffff;
@@ -171,7 +171,11 @@
                     <h3>1. Real‑Time Financial Dashboards </h3>
                     <p>Interactive BI dashboards for executives and finance teams. Consolidates accounting, payroll, and tax data into a single visualization layer.</p>
                 </div>
-                <button class="btn-checkout">₱120,000 - ₱350,000+</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Data Engineering & Integration Pipeline (ETL)">
+                    <input type="hidden" name="price" value="120000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱120,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -179,7 +183,11 @@
                     <h3>2. Predictive Analytics & Forecasting Models </h3>
                     <p>Machine‑learning powered forecasting for revenue, expenses, and cash flow. Helps anticipate risks and opportunities.</p>
                 </div>
-                <button class="btn-checkout">₱60,000 - ₱150,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Executive & Operational BI Dashboards">
+                    <input type="hidden" name="price" value="60000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱60,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -187,7 +195,11 @@
                     <h3>3. Data Strategy & Governance Roadmapping</h3>
                     <p>Tailored KPI dashboards for operations, sales, and HR. Enables budget‑versus‑actual analysis and performance benchmarking.</p>
                 </div>
-                <button class="btn-checkout">₱75,000 - ₱150,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Data Strategy & Governance Roadmapping">
+                    <input type="hidden" name="price" value="75000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱75,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -195,7 +207,11 @@
                     <h3>4. Automated Alerts & Notifications </h3>
                     <p>Cloud‑based monitoring system that triggers alerts for anomalies in payroll, tax filings, or financial transactions.</p>
                 </div>
-                <button class="btn-checkout">₱45,000 - ₱90,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Insights-as-a-Service Retainer">
+                    <input type="hidden" name="price" value="45000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱45,000/mo</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -203,7 +219,19 @@
                     <h3>5. Enterprise BI Warehouse Management</h3>
                     <p>Large‑scale data warehouse optimization, SQL query tuning, and integration pipelines for multi‑system reporting.</p>
                 </div>
-                <button class="btn-checkout">₱100,000 - ₱250,000+</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Enterprise BI Support & Warehouse Management">
+                    <input type="hidden" name="price" value="100000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱100,000</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Product Catalog Feedback</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Need adjustments on specific corporate engagement rates? Report metric configurations here.</p>
+                <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                    <button type="button" class="btn-checkout" style="max-width: 240px; min-width: auto;">Launch Feedback Console</button>
+                </a>
             </div>
 
         </div>

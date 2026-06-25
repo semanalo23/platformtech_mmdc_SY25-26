@@ -128,7 +128,7 @@
         }
 
         .btn-checkout {
-            min-width: 180px;
+            min-width: 220px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #5a81bf, #4a72b2);
             color: #ffffff;
@@ -171,7 +171,11 @@
                     <h3>1. Automated Journal Entry Setup </h3>
                     <p>Cloud‑based configuration for recurring journal entries, ledger mapping, and compliance‑ready templates.</p>
                 </div>
-                <button class="btn-checkout">₱30,000 - ₱60,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Advanced Tracking Setup & Tag Management">
+                    <input type="hidden" name="price" value="30000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱30,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -179,7 +183,11 @@
                     <h3>2. Invoice Management & Client Billing </h3>
                     <p>End‑to‑end invoicing automation with client portals, payment reminders, and reconciliation workflows.</p>
                 </div>
-                <button class="btn-checkout">₱40,000 - ₱85,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Custom Marketing Performance Dashboards">
+                    <input type="hidden" name="price" value="40000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱40,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -187,7 +195,11 @@
                     <h3>3. Bank Reconciliation & Cash Flow Audit </h3>
                     <p>Automated reconciliation against bank feeds, cash flow variance analysis, and fraud detection alerts.</p>
                 </div>
-                <button class="btn-checkout">₱50,000 - ₱120,000</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Omnichannel Marketing & Attribution Audit">
+                    <input type="hidden" name="price" value="50000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱50,000</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -195,7 +207,11 @@
                     <h3>4. SME Accounting Workflow Package </h3>
                     <p>Monthly accounting automation for SMEs: ledger balancing, expense categorization, and compliance reporting.</p>
                 </div>
-                <button class="btn-checkout">₱25,000 - ₱45,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Performance Marketing Analytics (Monthly)">
+                    <input type="hidden" name="price" value="25000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱25,000/mo</button>
+                </form>
             </div>
 
             <div class="matrix-item">
@@ -203,7 +219,19 @@
                     <h3>5. Enterprise Financial Reporting Suite </h3>
                     <p>Consolidated reporting dashboards, KPI tracking, and real‑time financial health monitoring.</p>
                 </div>
-                <button class="btn-checkout">₱60,000 - ₱110,000 / mo</button>
+                <form data-th-action="@{/cart/add}" method="post">
+                    <input type="hidden" name="serviceName" value="Customer Data Science & LTV Optimization">
+                    <input type="hidden" name="price" value="60000.00">
+                    <button type="submit" class="btn-checkout">Add to Cart - ₱60,000/mo</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #1a202c;">Product Catalog Feedback</h3>
+                <p style="margin: 0 0 16px 0; font-size: 13px; color: #718096;">Need adjustments on specific corporate engagement rates? Report metric configurations here.</p>
+                <a data-th-href="@{/feedback}" style="text-decoration: none;">
+                    <button type="button" class="btn-checkout" style="max-width: 240px; min-width: auto;">Launch Feedback Console</button>
+                </a>
             </div>
 
         </div>

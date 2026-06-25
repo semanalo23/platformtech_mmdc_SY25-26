@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FinMark - Order Deployment Logs</title>
+    <style>
+        body { margin: 0; font-family: -apple-system, sans-serif; background-color: #f7fafc; color: #2d3748; }
+        .navbar { background-color: #1a202c; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01); }
+        .log-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+        .log-table th, .log-table td { padding: 14px; text-align: left; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+        .log-table th { background-color: #f7fafc; color: #718096; text-transform: uppercase; font-size: 11px; }
+        
+        /* Navigation Button Console Components */
+        .admin-nav-console {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-btn-active {
+            background-color: #4a72b2;
+            color: #ffffff;
+            cursor: default;
+        }
+
+        .nav-btn-inactive {
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+
+        .nav-btn-inactive:hover {
+            background-color: #e2e8f0;
+            color: #1a202c;
+        }
+
+        /* Interactive Update Select Form Matrix */
+        .status-select {
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid #bee3f8;
+            font-size: 11px;
+            font-weight: bold;
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .btn-save {
+            background-color: #4a72b2;
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-save:hover { opacity: 0.9; }
+
+        /* Delete Control Buttons */
+        .btn-delete {
+            background-color: #e53e3e;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .btn-delete:hover { background-color: #c53030; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <span style="color: white; font-weight: bold; font-size: 18px;">FinMark Operations Deck</span>
+        <form data-th-action="@{/logout}" method="post" style="margin: 0;"><button type="submit" style="background: none; border: 1px solid #4a5568; padding: 8px 16px; border-radius: 8px; color: #a0aec0; cursor: pointer; font-weight: 600;">Sign Out</button></form>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            
+            <div class="admin-nav-console">
+                <a href="/admin/feedback-dashboard" class="nav-btn nav-btn-inactive">💬 View Client Feedback Logs</a>
+                <a href="/admin/orders-dashboard" class="nav-btn nav-btn-active">📦 View System Order Status Logs</a>
+                <a href="/admin/bi-reports" class="nav-btn nav-btn-inactive">📊 Executive BI Reports</a>
+            </div>
+
+            <h2 style="margin-top: 0; font-size: 22px; letter-spacing: -0.5px;">Active Framework Checkout Orders Ledger</h2>
+            <p style="color: #718096; font-size: 14px;">Monitor ongoing system provisioning instances, deployment values, and execution tokens.</p>
+
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Tracking Reference ID</th>
+                        <th style="width: 35%;">Associated Scope Lines</th>
+                        <th style="width: 15%;">Total Invoiced Value</th>
+                        <th style="width: 20%;">Live Allocation Status</th>
+                        <th style="width: 10%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="order : ${globalOrders}">
+                        <td style="font-family: monospace; font-weight: bold; color: #2b6cb0;" data-th-text="${order.referenceNumber}">FIN-0000-TX</td>
+                        <td style="font-weight: 600;" data-th-text="${order.servicesOrdered}">Service Scope Title</td>
+                        <td data-th-text="${'₱' + #numbers.formatDecimal(order.totalBill, 1, 'COMMA', 2, 'POINT')}">₱0.00</td>
+                        
+                        <td>
+                            <form data-th-action="@{/admin/orders/update-status}" method="post" style="display: flex; gap: 6px; align-items: center; margin: 0;">
+                                <input type="hidden" name="referenceNumber" data-th-value="${order.referenceNumber}">
+                                <select name="newStatus" class="status-select">
+                                    <option th:value="${order.status}" th:text="${'Current: ' + order.status}" selected disabled>Current Status</option>
+                                    <option value="Pending Activation">Pending Activation</option>
+                                    <option value="Processing Data">Processing Data</option>
+                                    <option value="Infrastructure Deployed">Infrastructure Deployed</option>
+                                    <option value="Terminated / Complete">Terminated / Complete</option>
+                                </select>
+                                <button type="submit" class="btn-save">Save</button>
+                            </form>
+                        </td>
+                        
+                        <td>
+                            <form data-th-action="@{/admin/orders/delete}" method="post" style="margin: 0;" onsubmit="return confirm('Are you sure you want to purge this record entry permanently?');">
+                                <input type="hidden" name="referenceNumber" data-th-value="${order.referenceNumber}">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr data-th-if="${#lists.isEmpty(globalOrders)}">
+                        <td colspan="5" style="text-align: center; color: #a0aec0; padding: 32px;">No orders logged in workspace memory pools.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

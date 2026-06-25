@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark - Corporate Cart Workspace</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .cart-container {
+            max-width: 650px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+        }
+
+        .cart-header {
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: 15px;
+        }
+
+        .item-price {
+            color: #4a5568;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .total-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 800;
+            font-size: 19px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 2px solid #edf2f7;
+            color: #1a202c;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 32px;
+            box-shadow: 0 4px 12px rgba(74, 114, 178, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn-checkout:hover:not([disabled]) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(74, 114, 178, 0.35);
+        }
+
+        .btn-checkout:disabled {
+            background: #cbd5e0;
+            color: #718096;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .lnk-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4a72b2;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2 style="margin: 0; font-size: 24px; letter-spacing: -0.5px;">Corporate Scope Cart</h2>
+            <p style="margin: 4px 0 0 0; color: #718096; font-size: 14px;">Review your selected service lines before running system deployment initialization.</p>
+        </div>
+        
+        <div data-th-each="item : ${cartItems}" class="item-row">
+            <span class="item-name" data-th-text="${item.serviceName}">Service Line Option</span>
+            <span class="item-price">₱<span data-th-text="${item.price}">0.00</span></span>
+        </div>
+        
+        <div data-th-if="${#lists.isEmpty(cartItems)}" style="text-align: center; color: #a0aec0; padding: 40px 0; font-size: 14px;">
+            Your workspace configuration cart is currently empty.
+        </div>
+        
+        <div class="total-box">
+            <span>Total Value:</span>
+            <span>₱<span data-th-text="${cartTotal}">0.00</span></span>
+        </div>
+        
+        <form data-th-action="@{/cart/checkout}" method="post">
+            <button type="submit" class="btn-checkout" data-th-disabled="${#lists.isEmpty(cartItems)}">Initialize System Checkout →</button>
+        </form>
+        
+        <a href="/home" class="lnk-back">← Add More Service Models</a>
+    </div>
+
+</body>
+</html>

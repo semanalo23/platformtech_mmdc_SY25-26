@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Client Feedback Workspace</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 24px;
+            height: 24px;
+            background-color: #2d3748;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-back:hover { background-color: #edf2f7; color: #1a202c; }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 36px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #4a5568;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #f7fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4a72b2;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(74, 114, 178, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #5a81bf, #4a72b2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(74, 114, 178, 0.2);
+            margin-top: 10px;
+        }
+
+        .alert-success {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #22543d;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" class="btn-back">← Hub Panel</a>
+    </nav>
+
+    <div class="container">
+        <div class="form-card">
+            <h2 style="margin: 0 0 6px 0; font-size: 22px; letter-spacing: -0.5px;">Optimization Console</h2>
+            <p style="color: #718096; font-size: 14px; margin: 0 0 28px 0;">Submit structural insights or report architecture adjustments to the admin control deck.</p>
+
+            <div class="alert-success" data-th-if="${param.submitted != null}">
+                ✓ Telemetry notification dispatched to system logs successfully.
+            </div>
+
+            <form data-th-action="@{/submit-feedback}" method="post">
+                
+                <div class="form-group">
+                    <label>Client Identity Account</label>
+                    <input type="email" name="clientName" class="form-control" required placeholder="vladimir@company.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Target Domain Context Matrix</label>
+                    <select name="serviceCategory" class="form-control" required>
+                        <option value="Services">Services Architecture</option>
+                        <option value="Pricing">Pricing Engagement Rates</option>
+                        <option value="Suggestions">Suggestions Hub</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Operational Priority Severity</label>
+                    <select name="priority" class="form-control">
+                        <option value="Low">Low Risk</option>
+                        <option value="Medium" selected>Medium Scope</option>
+                        <option value="High">High Priority Critical</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Detailed System Modification Message</label>
+                    <textarea name="message" class="form-control" required style="height: 100px; resize: vertical;" placeholder="Provide metric optimization details..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Dispatch to Registry Console →</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
