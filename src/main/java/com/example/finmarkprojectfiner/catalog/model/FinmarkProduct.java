@@ -30,7 +30,8 @@ public class FinmarkProduct {
     }
 
     // Getters and setters
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
     public void setId(Long id) {
