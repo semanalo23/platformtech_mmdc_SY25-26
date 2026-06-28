@@ -74,6 +74,10 @@
             margin-top: 32px;
             box-shadow: 0 4px 12px rgba(74, 114, 178, 0.25);
             transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
         }
 
         .btn-checkout:hover:not([disabled]) {
@@ -81,11 +85,12 @@
             box-shadow: 0 6px 16px rgba(74, 114, 178, 0.35);
         }
 
-        .btn-checkout:disabled {
+        .btn-checkout[disabled] {
             background: #cbd5e0;
             color: #718096;
             cursor: not-allowed;
             box-shadow: none;
+            transform: none;
         }
 
         .lnk-back {
@@ -109,7 +114,7 @@
         
         <div data-th-each="item : ${cartItems}" class="item-row">
             <span class="item-name" data-th-text="${item.serviceName}">Service Line Option</span>
-            <span class="item-price">₱<span data-th-text="${item.price}">0.00</span></span>
+            <span class="item-price">₱<span data-th-text="${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">0.00</span></span>
         </div>
         
         <div data-th-if="${#lists.isEmpty(cartItems)}" style="text-align: center; color: #a0aec0; padding: 40px 0; font-size: 14px;">
@@ -118,12 +123,14 @@
         
         <div class="total-box">
             <span>Total Value:</span>
-            <span>₱<span data-th-text="${cartTotal}">0.00</span></span>
+            <span>₱<span data-th-text="${#numbers.formatDecimal(cartTotal, 1, 'COMMA', 2, 'POINT')}">0.00</span></span>
         </div>
         
-        <form data-th-action="@{/cart/checkout}" method="post">
-            <button type="submit" class="btn-checkout" data-th-disabled="${#lists.isEmpty(cartItems)}">Initialize System Checkout →</button>
-        </form>
+        <div style="margin-top: 32px;">
+            <a href="/cart/review" class="btn-checkout" th:attr="disabled=${#lists.isEmpty(cartItems)} ? 'disabled' : null" onclick="if(this.getAttribute('disabled')) return false;">
+                Proceed to Confirmation Review →
+            </a>
+        </div>
         
         <a href="/home" class="lnk-back">← Add More Service Models</a>
     </div>

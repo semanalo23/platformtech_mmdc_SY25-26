@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark - Secure Payment Processing</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f7fafc; color: #2d3748; }
+        .navbar { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 500px; margin: 60px auto; padding: 0 20px; }
+        .gateway-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.02); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #4a5568; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        input[type="text"] { width: 100%; padding: 12px 16px; box-sizing: border-box; border: 1px solid #e2e8f0; background-color: #f7fafc; border-radius: 10px; font-size: 14px; color: #2d3748; transition: all 0.2s; }
+        input:focus { outline: none; border-color: #4a72b2; background-color: #ffffff; box-shadow: 0 0 0 3px rgba(74, 114, 178, 0.15); }
+        .btn-pay { width: 100%; padding: 16px; background: linear-gradient(135deg, #4a72b2, #3b5c90); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(74, 114, 178, 0.2); transition: all 0.2s; }
+        .btn-pay:hover { transform: translateY(-1px); }
+        .error-banner { background-color: #fff5f5; border: 1px solid #fed7d7; color: #c53030; padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; font-weight: 600; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <span style="font-weight: 700; font-size: 18px; color: #1a202c;">FinMark Billing Terminal</span>
+        <a href="/cart/review" style="text-decoration: none; font-size: 13px; font-weight: 600; color: #718096;">← Back to Review</a>
+    </nav>
+
+    <div class="container">
+        <div class="gateway-card">
+            <h2 style="margin: 0 0 4px 0; font-size: 22px; letter-spacing: -0.5px;">Merchant Payment Gateway</h2>
+            <p style="color: #718096; font-size: 13px; margin: 0 0 28px 0;">Provide your credit card parameters below to complete your system subscription infrastructure provisioning.</p>
+
+            <div th:if="${paymentError != null}" class="error-banner" th:text="${paymentError}">
+                Card error notifications trigger here...
+            </div>
+
+            <form data-th-action="@{/cart/process-payment}" method="post" onsubmit="return cleanAndVerifyInput()">
+                <div class="form-group">
+                    <label>Cardholder Full Name</label>
+                    <input type="text" name="cardHolderName" placeholder="VLADIMIR BERNARDO" required autocomplete="cc-name">
+                </div>
+
+                <div class="form-group">
+                    <label>Credit Card Number (16 Digits)</label>
+                    <input type="text" id="ccInput" name="cardNumber" placeholder="4111 2222 3333 4444" maxlength="19" required autocomplete="cc-number">
+                </div>
+
+                <div style="background-color: #f7fafc; padding: 14px; border-radius: 10px; border: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <span style="font-size: 12px; font-weight: 700; color: #718096; text-transform: uppercase;">Invoiced Total Rate</span>
+                    <span style="font-size: 18px; font-weight: 800; color: #1a202c;">₱<span data-th-text="${#numbers.formatDecimal(totalAmount, 1, 'COMMA', 2, 'POINT')}">0.00</span></span>
+                </div>
+
+                <button type="submit" class="btn-pay">Authorize Payment Transaction →</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Optional client-side dynamic spacing formatter to insert gaps for every 4 numbers typed
+        document.getElementById('ccInput').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        function cleanAndVerifyInput() {
+            var rawCard = document.getElementById('ccInput').value.replace(/\s+/g, '');
+            if (rawCard.length !== 16 || isNaN(rawCard)) {
+                alert("⚠️ Validation Failure: Credit Card sequence must structure exactly 16 numerical properties.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
