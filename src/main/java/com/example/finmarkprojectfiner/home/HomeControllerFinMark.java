@@ -46,6 +46,32 @@ public class HomeControllerFinMark {
 
     @GetMapping("/login") public String showLoginPage() { return "login"; }
 
+    // SIGNUP PROCESSOR: Captures complete registration profiles with safety sequence checks
+    @PostMapping("/signup")
+    public String processSignup(
+            @RequestParam("username") String username,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("firstName") String firstName,
+            @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword) {
+        
+        String cleanUser = username.trim().toLowerCase();
+        
+        if (databaseCredentials.containsKey(cleanUser)) {
+            return "redirect:/login?error=exists";
+        }
+        
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/login?error=mismatch";
+        }
+        
+        System.out.println("📝 [REGISTRATION] Profile Enrolled -> Email: " + cleanUser 
+                + " | Owner: " + lastName + ", " + firstName);
+        
+        databaseCredentials.put(cleanUser, password);
+        return "redirect:/login?registered";
+    }
+
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("logs", executionLogs);
@@ -87,7 +113,7 @@ public class HomeControllerFinMark {
         return "admin-orders-dashboard"; 
     }
 
-    // 🟢 ADMIN SEPARATE LOG ROUTE 3: Executive Business Intelligence & Analytics Reports
+    // ADMIN SEPARATE LOG ROUTE 3: Executive Business Intelligence & Analytics Reports
     @GetMapping("/admin/bi-reports")
     public String showAdminBIReports(Model model) {
         // Compute running totals out of core transactional allocations dynamically
@@ -133,10 +159,56 @@ public class HomeControllerFinMark {
         return "cart";
     }
 
+    // CART PRE-CHECKOUT CONFIRMATION STEP
+    @GetMapping("/cart/review")
+    public String reviewCartBeforeCheckout(Model model) {
+        double total = userCart.stream().mapToDouble(CartItem::getPrice).sum();
+        model.addAttribute("cartItems", userCart);
+        model.addAttribute("cartTotal", total);
+        return "cart-review"; 
+    }
+
+    // CART CRUD: DELETE OPERATION - Purges elements by tracking row placement index indices
+    @PostMapping("/cart/remove-item")
+    public String removeServiceFromCart(@RequestParam("itemIndex") int itemIndex) {
+        if (itemIndex >= 0 && itemIndex < userCart.size()) {
+            System.out.println("🗑️ [CART REMOVE] Purging Index Row: " + itemIndex + " | Service: " + userCart.get(itemIndex).getServiceName());
+            userCart.remove(itemIndex);
+        }
+        return "redirect:/cart/review";
+    }
+
+    // 💳 PAYMENT GATEWAY STAGE 1: Intercepts checkout actions to load credit card fields
     @PostMapping("/cart/checkout")
-    public String processCheckout(Model model) {
+    public String showPaymentPage(Model model) {
+        if (userCart.isEmpty()) { return "redirect:/cart?error=empty"; }
+        
+        double totalAmount = userCart.stream().mapToDouble(CartItem::getPrice).sum();
+        model.addAttribute("totalAmount", totalAmount);
+        return "payment-gateway"; 
+    }
+
+    // 🚀 PAYMENT GATEWAY STAGE 2: Validates digits, processes admin ledgers, and registers bell alerts
+    @PostMapping("/cart/process-payment")
+    public String processPaymentAndIssueKey(
+            @RequestParam("cardHolderName") String cardHolderName,
+            @RequestParam("cardNumber") String cardNumber,
+            Model model) {
+        
         if (userCart.isEmpty()) { return "redirect:/cart?error=empty"; }
 
+        // Sanitize string text values by stripping formatting gaps
+        String cleanCard = cardNumber.replaceAll("\\s+", "");
+        
+        // Comprehensive 16-Digit Structural Validation Check Check
+        if (cleanCard.length() != 16 || !cleanCard.matches("\\d+")) {
+            double totalAmount = userCart.stream().mapToDouble(CartItem::getPrice).sum();
+            model.addAttribute("totalAmount", totalAmount);
+            model.addAttribute("paymentError", "Validation Error: Input sequence configuration parameters must contain exactly 16 numerical properties.");
+            return "payment-gateway"; 
+        }
+
+        // Generate final infrastructure token identifiers
         String referenceNumber = "FIN-" + (10000 + (int)(Math.random() * 90000)) + "-TX";
         double totalAmount = userCart.stream().mapToDouble(CartItem::getPrice).sum();
         
@@ -146,12 +218,21 @@ public class HomeControllerFinMark {
             itemsSummary.append(item.getServiceName());
         }
 
+        // 1. Log transaction directly to the global administrative orders tracking array
         globalOrders.add(new OrderTrack(referenceNumber, "active_session_client", itemsSummary.toString(), totalAmount, "Pending Activation"));
+        
+        // 2. 🔔 AUTO-BROADCAST TELEMETRY NOTIFICATION: Categorized as "System Alert" so it redirects exclusively to the user's layout bell dropdown wrapper
+        String alertMessage = "Invoiced Framework Authorized. Operational access for item components [" + itemsSummary.toString() + "] provisioned successfully. Tracking ID: " + referenceNumber;
+        feedbackLogs.add(new FeedbackEntry("System Notification Gateway", "System Alert", "Low", alertMessage));
+
+        // 3. Clear active checkout memory lines
         userCart.clear(); 
 
         model.addAttribute("refNumber", referenceNumber);
         model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("orderSummary", itemsSummary.toString());
+        model.addAttribute("payerName", cardHolderName.trim().toUpperCase());
+        
         return "checkout-success";
     }
 

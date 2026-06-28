@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Corporation - Review Scope Lines</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background-color: #f7fafc; color: #2d3748; }
+        .navbar { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-block { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-logo { width: 24px; height: 24px; background-color: #2d3748; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .brand-title { font-size: 18px; font-weight: 700; color: #1a202c; letter-spacing: -0.5px; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .review-card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.01); }
+        
+        /* Table Structure styling */
+        .review-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .review-table th, .review-table td { padding: 14px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .review-table th { background-color: #f7fafc; color: #718096; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+        
+        /* Actions button layout matrix formatting */
+        .btn-delete { background-color: #fff5f5; color: #e53e3e; border: 1px solid #fed7d7; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-delete:hover { background-color: #e53e3e; color: white; }
+        .actions-row { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 20px; border-top: 2px solid #edf2f7; }
+        .btn-add-more { color: #4a72b2; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .btn-add-more:hover { text-decoration: underline; }
+        .btn-final-confirm { background: linear-gradient(135deg, #5a81bf, #4a72b2); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(74, 114, 178, 0.2); }
+        .btn-final-confirm:hover { transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/home" class="brand-block">
+            <div class="brand-logo"></div>
+            <div class="brand-title">FinMark Corporation</div>
+        </a>
+        <a href="/home" style="text-decoration: none; font-weight: 600; font-size: 13px; color: #718096;">← Cancel</a>
+    </nav>
+
+    <div class="container">
+        <div class="review-card">
+            <h2 style="margin: 0 0 6px 0; font-size: 24px; letter-spacing: -0.5px;">Review Selected Scope Allocations</h2>
+            <p style="color: #718096; font-size: 14px; margin: 0;">Validate your corporate workspace infrastructure selections before final data-highway routing activation.</p>
+
+            <table class="review-table">
+                <thead>
+                    <tr>
+                        <th style="width: 60%;">Selected Service Line Item</th>
+                        <th style="width: 25%;">Engagement Rate</th>
+                        <th style="width: 15%; text-align: center;">Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="item, stat : ${cartItems}">
+                        <td style="font-weight: 600; color: #2d3748;" data-th-text="${item.serviceName}">Service Scope Name</td>
+                        <td style="color: #4a5568;">₱<span data-th-text="${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">0.00</span></td>
+                        <td style="text-align: center;">
+                            <form data-th-action="@{/cart/remove-item}" method="post" style="margin: 0;">
+                                <input type="hidden" name="itemIndex" data-th-value="${stat.index}">
+                                <button type="submit" class="btn-delete">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr style="background-color: #f7fafc; font-weight: 700;">
+                        <td style="text-transform: uppercase; font-size: 11px; color: #718096;">Aggregated Volume Total</td>
+                        <td colspan="2" style="font-size: 16px; color: #1a202c;">₱<span data-th-text="${#numbers.formatDecimal(cartTotal, 1, 'COMMA', 2, 'POINT')}">0.00</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="actions-row">
+                <a href="/home" class="btn-add-more">+ Add Alternative Services</a>
+                
+                <form data-th-action="@{/cart/checkout}" method="post" style="margin: 0;">
+                    <button type="submit" class="btn-final-confirm">Confirm & Issue Tracking Key →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

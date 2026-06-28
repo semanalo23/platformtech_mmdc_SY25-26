@@ -195,9 +195,9 @@
         <div class="card">
 
             <div class="admin-nav-console">
-                <a href="/admin/feedback-dashboard" class="nav-btn nav-btn-inactive">💬 View Client Feedback Logs</a>
+                <a href="/admin/feedback-dashboard" class="nav-btn nav-btn-active">💬 View Client Feedback Logs</a>
                 <a href="/admin/orders-dashboard" class="nav-btn nav-btn-inactive">📦 View System Order Status Logs</a>
-                <a href="/admin/bi-reports" class="nav-btn nav-btn-inactive" style="background-color: #edf2f7; color: #4a5568;">📊 Executive BI Reports</a>
+                <a href="/admin/bi-reports" class="nav-btn nav-btn-inactive">📊 Executive BI Reports</a>
             </div>
 
             <h2 style="margin-top: 0; font-size: 22px; letter-spacing: -0.5px;">Client Feedback & Suggestion Registry</h2>
@@ -214,7 +214,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-th-each="item : ${feedbackLogs}">
+                    <!-- 🟢 FILTER INTEGRATION: Bypasses automated system checkout alerts cleanly -->
+                    <tr data-th-each="item : ${feedbackLogs}" data-th-if="${item.serviceCategory != 'System Alert'}">
                         <td style="font-weight: 600; color: #1a202c;" data-th-text="${item.clientName}">client@company.com</td>
                         <td>
                             <span data-th-classappend="${item.serviceCategory == 'Services' ? 'badge-services' : (item.serviceCategory == 'Pricing' ? 'badge-pricing' : 'badge-suggestions')}" 
@@ -251,7 +252,8 @@
                         </td>
                     </tr>
                     
-                    <tr data-th-if="${#lists.isEmpty(feedbackLogs)}">
+                    <!-- Empty list view checker framework rule -->
+                    <tr data-th-if="${#lists.isEmpty(feedbackLogs) || !#lists.anyMatch(feedbackLogs, 'serviceCategory != ''System Alert''')}">
                         <td colspan="5" style="text-align: center; color: #a0aec0; padding: 32px;">No incoming data logs matching current registration matrices.</td>
                     </tr>
                 </tbody>
