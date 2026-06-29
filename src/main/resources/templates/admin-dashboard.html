@@ -252,8 +252,8 @@
                         </td>
                     </tr>
                     
-                    <!-- Empty list view checker framework rule -->
-                    <tr data-th-if="${#lists.isEmpty(feedbackLogs) || !#lists.anyMatch(feedbackLogs, 'serviceCategory != ''System Alert''')}">
+                    <!-- 🟢 FIXED EMPTY LIST VIEW CHECKER: Uses collection selection projection arrays to count cleanly -->
+                    <tr data-th-if="${#lists.isEmpty(feedbackLogs) || feedbackLogs.?[serviceCategory != 'System Alert'].isEmpty()}">
                         <td colspan="5" style="text-align: center; color: #a0aec0; padding: 32px;">No incoming data logs matching current registration matrices.</td>
                     </tr>
                 </tbody>
