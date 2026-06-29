@@ -211,9 +211,10 @@
         
         <div class="nav-actions-group">
             <div style="position: relative; display: inline-block; margin-right: 10px;">
-                <button type="button" onclick="toggleNotificationDropdown()" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 50%; position: relative; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#edf2f7'" onmouseout="this.style.backgroundColor='transparent'">
+                <button id="notificationBellBtn" type="button" onclick="toggleNotificationDropdown()" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 50%; position: relative; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#edf2f7'" onmouseout="this.style.backgroundColor='transparent'">
                     🔔
-                    <span data-th-if="${!#lists.isEmpty(feedbackLogs)}" style="position: absolute; top: 0; right: 0; background-color: #e53e3e; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold;" data-th-text="${#lists.size(feedbackLogs)}">1</span>
+                    <!-- 🟢 COUNTS BY SYSTEM UNREAD STATE: Badge loads on user login only if unread logs exist -->
+                    <span id="bellCounterBadge" data-th-if="${!feedbackLogs.?[!isRead].isEmpty()}" style="position: absolute; top: 0; right: 0; background-color: #e53e3e; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold;" data-th-text="${feedbackLogs.?[!isRead].size()}">0</span>
                 </button>
 
                 <div id="notificationDropdown" style="display: none; position: absolute; right: 0; top: 35px; background-color: white; width: 320px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 1000; max-height: 400px; overflow-y: auto;">
@@ -327,8 +328,24 @@
     <script>
         function toggleNotificationDropdown() {
             var dropdown = document.getElementById("notificationDropdown");
+            var badge = document.getElementById("bellCounterBadge");
+            
             if (dropdown.style.display === "none" || dropdown.style.display === "") {
                 dropdown.style.display = "block";
+                
+                // Hide badge on UI level instantly for premium responsiveness
+                if (badge) {
+                    badge.style.display = "none";
+                }
+                
+                // 🟢 PERSISTENT STATE TRIGGER: Synchronizes unread indices inside Spring memory arrays via AJAX
+                fetch('/api/notifications/mark-read', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(response => {
+                    console.log("📝 [NOTIFICATIONS] Live transaction notifications synced as read.");
+                }).catch(err => console.error("Memory sync pipeline exception:", err));
+                
             } else {
                 dropdown.style.display = "none";
             }

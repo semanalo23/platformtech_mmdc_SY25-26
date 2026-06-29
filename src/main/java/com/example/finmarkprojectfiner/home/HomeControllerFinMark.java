@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -236,6 +237,14 @@ public class HomeControllerFinMark {
         return "checkout-success";
     }
 
+    // 🟢 AJAX BACKEND VECTOR: Marks all current log history notifications as read instantly when the client user views the dropdown bell panel
+    @PostMapping("/api/notifications/mark-read")
+    @ResponseBody
+    public void markNotificationsAsRead() {
+        System.out.println("📝 [ASYNC STATE CHECK] Executing batch update: Marking notification records read.");
+        feedbackLogs.forEach(entry -> entry.setRead(true));
+    }
+
     // CLIENT SEARCH VECTOR: Traces order IDs and sets status alerts
     @GetMapping("/order/track")
     public String showOrderTrackingPage(
@@ -266,7 +275,7 @@ public class HomeControllerFinMark {
     // ADMIN CRUD IMPLEMENTATION MAPPINGS
     // ===============================================
 
-    // CRUD: UPDATE OPERATION - Modifies infrastructure provisioning status parameters
+    // CRUD: UPDATE OPERATION - Modifies infrastructure provisioning status parameters and synchronizes user notifications
     @PostMapping("/admin/orders/update-status")
     public String updateOrderStatus(
             @RequestParam("referenceNumber") String referenceNumber,
@@ -274,10 +283,22 @@ public class HomeControllerFinMark {
         
         System.out.println("🔄 [CRUD UPDATE] Modifying Ref: " + referenceNumber + " -> Status: " + newStatus);
         
+        // 1. Update the status parameter entry within your System Orders list
         globalOrders.stream()
                 .filter(order -> order.getReferenceNumber().equalsIgnoreCase(referenceNumber.trim()))
                 .findFirst()
                 .ifPresent(order -> order.setStatus(newStatus));
+                
+        // 2. 🔔 NOTIFICATION SYSTEM SYNC: Scans feedback logs for system alerts and resets read state to wake up the user icon badge alert
+        feedbackLogs.stream()
+                .filter(entry -> entry.getServiceCategory().equals("System Alert") && 
+                                 entry.getMessage().contains(referenceNumber.trim()))
+                .findFirst()
+                .ifPresent(entry -> {
+                    entry.setStatus(newStatus); 
+                    entry.setAdminReply("System status updated to: " + newStatus);
+                    entry.setRead(false); // 🟢 FORCES FRESH UNREAD BADGE TO LIGHT UP ON USER DASHBOARD REBOOTS
+                });
                 
         return "redirect:/admin/orders-dashboard";
     }
@@ -308,6 +329,7 @@ public class HomeControllerFinMark {
                 .ifPresent(entry -> {
                     entry.setAdminReply(adminReply);
                     entry.setStatus(status);
+                    entry.setRead(false); // 🟢 FORCES FRESH UNREAD BADGE TO LIGHT UP ON CLIENT FEEDBACK SUBMISSION ANSWERS
                 });
                 
         return "redirect:/admin/feedback-dashboard";
@@ -350,6 +372,7 @@ class FeedbackEntry {
     private final String message;
     private String adminReply = "";    
     private String status = "Open";    
+    private boolean isRead = false; // 🟢 STATE VARIABLE: Persists read/unread tracking properties
     
     public FeedbackEntry(String clientName, String serviceCategory, String priority, String message) {
         this.clientName = clientName; this.serviceCategory = serviceCategory; this.priority = priority; this.message = message;
@@ -363,6 +386,9 @@ class FeedbackEntry {
     public void setAdminReply(String adminReply) { this.adminReply = adminReply; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    
+    public boolean isRead() { return isRead; }
+    public void setRead(boolean read) { this.isRead = read; }
 }
 
 class CartItem {
