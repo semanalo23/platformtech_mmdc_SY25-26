@@ -1,12 +1,11 @@
 # Project Finer FinMark (Prototype)
 
-Welcome to the repository for **Project Finer FinMark**. This prototype is a scalable and secure online order placement system designed to address FinMark Corporation's growth targets. It transitions the legacy system into a robust architecture capable of handling increased order volumes seamlessly.
+Welcome to the repository for **Project Finer FinMark**. This prototype is a scalable and secure online order placement system designed to address FinMark Corporation's growth targets. It transitions the legacy system into a robust architecture capable of handling increased order volumes seamlessly. This is the monolith version, there would be another repository for the microservices built option which uses multiple hosts for the respective microservices.
 
 ## 🚀 Tech Stack
 
 - **Backend:** Java / Spring Boot (Security)
-- **Frontend:** React.js (User Interface)
-- **Build Tools:** Gradle (Backend) & npm (Frontend)
+- **Build Tools:** Gradle (Backend) & HTML/CSS (front end)
 
 ---
 
